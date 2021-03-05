@@ -1,17 +1,49 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
-  "license": "",
+  "name": "melissa-service-1",
+  "description": "Melissa Ryan - Fjallraven Related Products Service",
+  "author": "Melissa Ryan",
+  "license": "ISC",
   "engines": {
     "node": ">=6.13.0"
   },
   "scripts": {
+    "build": "webpack build",
+    "react-dev": "webpack serve",
+    "start": "nodemon ./server/server.js localhost:6000"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.18",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
-  }
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "^7.13.9",
+    "@babel/preset-react": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.1.1",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor.git",
+    "html-webpack-plugin": "^5.2.0",
+    "jest": "^26.6.3",
+    "mini-css-extract-plugin": "^1.3.9",
+    "nodemon": "^2.0.7",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpt26-fec-tianwen/melissa-service-1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rpt26-fec-tianwen/melissa-service-1/issues"
+  },
+  "homepage": "https://github.com/rpt26-fec-tianwen/melissa-service-1#readme"
 }
