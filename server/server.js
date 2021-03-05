@@ -6,9 +6,8 @@ const port = 6000;
 const path = require('path');
 const fs = require('fs');
 
-const database = require('./database/database.js');
-
-const seeding = require('./database/seedingScript.js');
+// const database = require('./database/database.js');
+const seedingScript = require('./database/seedingScript.js');
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public/index.html')));
@@ -24,7 +23,7 @@ app.get('/related-products/:id', (req, res) => {
 });
 
 app.get('/seed', (req, res) => {
-  database.seed((err, results) => {
+  seedingScript.seedDatabase((err, results) => {
     if (err) {
       console.log('Error seeding');
     }
@@ -32,6 +31,8 @@ app.get('/seed', (req, res) => {
   });
 
 });
+
+
 
 app.listen(port, () => {
   console.log(`Fjallraven related products service listening at http://localhost:${port}`);
