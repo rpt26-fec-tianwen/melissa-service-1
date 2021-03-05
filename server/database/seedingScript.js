@@ -10,7 +10,7 @@ const seeding = () => {
 
     // Get a random number between 4 and 8
     let randomProductIds = [];
-    let numberOfRelatedProducts = Math.random() * (8 - 4) + 4;
+    let numberOfRelatedProducts = Math.random() * (8 - 3) + 3;
 
     // Get a number from 1 - 100, between the specified number of times above
     for (var j = 0; j <= numberOfRelatedProducts; j++) {

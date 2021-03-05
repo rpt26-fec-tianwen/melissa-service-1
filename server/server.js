@@ -8,6 +8,8 @@ const fs = require('fs');
 
 const database = require('./database/database.js');
 
+const seeding = require('./database/seedingScript.js');
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public/index.html')));
 
@@ -22,10 +24,15 @@ app.get('/related-products/:id', (req, res) => {
 });
 
 app.get('/seed', (req, res) => {
-  database.seed();
-  res.sendStatus(200);
+  database.seed((err, results) => {
+    if (err) {
+      console.log('Error seeding');
+    }
+    res.status(200).send(results);
+  });
+
 });
 
 app.listen(port, () => {
   console.log(`Fjallraven related products service listening at http://localhost:${port}`);
-})
+});

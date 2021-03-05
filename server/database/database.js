@@ -10,21 +10,47 @@ const relatedProductsSchema = new mongoose.Schema({
   related_products: Array
 });
 
+// Sets up a model using the schema
 const RelatedProducts = mongoose.model('RelatedProducts', relatedProductsSchema);
 
-//const _id = new Related_Products({ _id: _id, related_products: [3,5,7]});
 
-//console.log(item1.related_products);
+// Seeds the db with random data
+let seed = (callback) => {
 
-let fakeData = seedingScript.seeding();
-
-let seed = () => {
-
-  // Delete all existing collections to start fresh
-  RelatedProducts.deleteMany();
-
+  // Gets random generated data
   let data = seedingScript.seeding();
-  console.log('Seeding your beautiful mongodb');
+
+  // Delete all existing documents in collection RelatedProducts
+  RelatedProducts.deleteMany({})
+    .then(() => {
+
+      // Iterate through data and create documents according to schema
+      data.forEach(product => {
+
+        const related = new RelatedProducts({
+          _id: product._id,
+          related_products: product.related_products
+        });
+
+        // Save each new document
+        related.save(function (err, related) {
+          if (err) return console.log(err);
+        });
+
+      });
+
+    })
+    // Get the final dataset and return it
+    .then(() => {
+      async function getData() {
+        const data = await RelatedProducts.find({});
+      }
+      // Send the data back into the GET response
+      callback(null, data);
+    })
+    .catch((err) => {
+      throw err;
+    });
 
 }
 
