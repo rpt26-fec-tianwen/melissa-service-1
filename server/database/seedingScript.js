@@ -1,21 +1,8 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fjallraven', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to Fjallraven related products database'))
-  .catch(err => console.log(err));
+const db = require('./connection');
 
-// Schema
-const relatedProductsSchema = mongoose.Schema({
-  _id: Number,
-  related_products: Array
-});
-
-// Model
-const RelatedProducts = mongoose.model('RelatedProducts', relatedProductsSchema);
-
-
-// Creates 100 documents with an _id key and a related_products key
-// related_products value is an array of length 4 - 8
-// each array value is a random number between 1 and 100
+// Creates 100 documents with an '_id' key and a 'related_products' key
+// The 'related_products' value is an array with a random length between 4 and 8
+// Each array value itself is a random number between 1 and 100 to represent product ids
 const createDataForSeeding = () => {
 
   let seeds = [];
@@ -30,7 +17,7 @@ const createDataForSeeding = () => {
 
     // Get a number from 1 - 100, between 4 and 8 times, depending on numberOfRelatedProducts
     for (var j = 0; j <= numberOfRelatedProducts; j++) {
-      let productId = Math.floor(Math.random() * Math.floor(100));
+      let productId = Math.round(Math.random() * (100 - 1) + 1);
       randomProductIds.push(productId);
     }
 
@@ -50,35 +37,37 @@ const createDataForSeeding = () => {
 // Seeds the db with random data
 let seedDatabase = (callback) => {
 
-  // Gets random generated data
+  // Gets random generated data from createDataForSeeding function above
   let data = createDataForSeeding();
 
-  // Delete all existing documents in collection RelatedProducts
-  RelatedProducts.deleteMany({})
+  // Delete all existing documents in collection RelatedProducts to start with empty collection
+  db.RelatedProducts.deleteMany({})
     .then(() => {
 
       // Iterate through data and create documents according to schema
       data.forEach(product => {
 
-        const related = new RelatedProducts({
+        const related = new db.RelatedProducts({
           _id: product._id,
           related_products: product.related_products
         });
 
         // Save each new document
         related.save(function (err, related) {
-          if (err) return console.log(err);
+          if (err) {
+            callback(err, null);
+          }
         });
 
       });
 
     })
-    // Get the final dataset and return it
+    // Get the final dataset from the database and return it
     .then(() => {
       async function getData() {
-        const data = await RelatedProducts.find({});
+        const data = await db.RelatedProducts.find({});
       }
-      // Send the data back into the GET response
+      // Send the data (an array of product ids) back into the GET response
       callback(null, data);
     })
     .catch((err) => {
