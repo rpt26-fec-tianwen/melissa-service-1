@@ -73,7 +73,6 @@ let seedDatabase = (callback) => {
     .catch((err) => {
       throw err;
     });
-
 }
 
 module.exports.seedDatabase = seedDatabase;

@@ -11,16 +11,17 @@ const createSampleData = () => {
 
     product['id'] = i;
     product['title'] = 'Sample product name';
-    product['price'] = '$450.00';
+    product['price'] = '$' + Math.floor(Math.random() * 575);
     product['url'] = '/public/img/sampleDataImages/SINGI_DOWN_JACKET_W015.jpg';
 
     sampleProducts.push(product);
   }
 
-  //console.log('sample products', sampleProducts);
-
   return sampleProducts;
 
 }
+
+
+
 
 module.exports.createSampleData = createSampleData;

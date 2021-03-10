@@ -9,6 +9,7 @@ const fs = require('fs');
 const db = require('./database/connection.js');
 const helpers = require('./database/helpers.js');
 const seedingScript = require('./database/seedingScript.js');
+
 const sampleData = require('../sampleData/sampleData.js');
 
 app.use(express.json());
@@ -22,23 +23,62 @@ app.get('/related-products/:id', (req, res) => {
 
   // Get the request parameters
   let id = req.params.id;
-  console.log(id);
 
-  // Assigns fake data (before I'm able to get API)
-  // Switch out later
-  let data = sampleData.createSampleData();
-
-  // Get the related product ids
   helpers.getRelatedProductIds(id)
     .then((data) => {
-      // reach out to Product Card API
 
-      res.status(200).send(data);
+      let related_productIds = data[0].related_products;
+      console.log(related_productIds);
+
+      let requestParams = '';
+
+      // Builds the query string with the array of product ids
+      for (var i = 1; i < related_productIds.length; i++) {
+        if (i < related_productIds.length - 1) {
+          requestParams += `id[` + i + `]=` + related_productIds[i] + `&`
+        }
+        else {
+          requestParams += `id[` + i + `]=` + related_productIds[i]
+        }
+      }
+
+      return requestParams;
+
+    })
+    .then((requestParams) => {
+      console.log(requestParams);
+
+      axios({
+        method:'get',
+        url: `/imposterData`
+      })
+      .then((response) => {
+        console.log('yooooo');
+        res.status(200).send(response);
+      })
     })
     .catch((error) => {
+      console.log('what happened');
       res.status(500).send(error);
     });
 
+
+});
+
+// Route to fake external API data call
+app.get('/imposterData', (req, res) => {
+
+  //console.log(req.params.productIds);
+
+  let data = sampleData.createSampleData();
+
+  let returnData = {};
+
+  for (var i = 0; i < 8; i++) {
+    returnData[i] = data[i];
+  }
+
+  res.status(200).send(returnData);
 
 });
 
