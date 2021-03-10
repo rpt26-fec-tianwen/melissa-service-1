@@ -26,7 +26,6 @@ const createDataForSeeding = () => {
     seed['related_products'] = randomProductIds;
 
     seeds.push(seed);
-
   }
 
   return seeds;
