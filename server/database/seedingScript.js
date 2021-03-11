@@ -37,40 +37,44 @@ const createDataForSeeding = () => {
 let seedDatabase = (callback) => {
 
   // Gets random generated data from createDataForSeeding function above
-  let data = createDataForSeeding();
+  let allRelatedProductsIds = createDataForSeeding();
 
   // Delete all existing documents in collection RelatedProducts to start with empty collection
-  db.RelatedProducts.deleteMany({})
+  db.relatedproducts.deleteMany({})
     .then(() => {
 
       // Iterate through data and create documents according to schema
-      data.forEach(product => {
+      async function saveToDatabase() {
 
-        const related = new db.RelatedProducts({
-          _id: product._id,
-          related_products: product.related_products
+        return saved = await allRelatedProductsIds.forEach(product => {
+
+          const related = new db.relatedproducts({
+            _id: product._id,
+            related_products: product.related_products
+          });
+
+          // Save each new document
+          related.save(function (err, related) {
+            if (err) {
+              callback(err, null);
+            }
+          });
+
         });
+      };
 
-        // Save each new document
-        related.save(function (err, related) {
-          if (err) {
-            callback(err, null);
+      // Respond with a message that it is saving
+      saveToDatabase()
+        .then((error, results) => {
+          if (error) {
+            callback(error, null);
           }
+
+          callback(null, 'Saving');
+        })
+        .catch((err) => {
+          console.log('Error in seedingScript catch ', err);
         });
-
-      });
-
-    })
-    // Get the final dataset from the database and return it
-    .then(() => {
-      async function getData() {
-        const data = await db.RelatedProducts.find({});
-      }
-      // Send the data (an array of product ids) back into the GET response
-      callback(null, data);
-    })
-    .catch((err) => {
-      throw err;
     });
 }
 

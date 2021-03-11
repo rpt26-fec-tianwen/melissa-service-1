@@ -14,5 +14,5 @@ const relatedProductsSchema = mongoose.Schema({
 // Model
 const RelatedProducts = mongoose.model('RelatedProducts', relatedProductsSchema);
 
-module.exports = { RelatedProducts: RelatedProducts }
+module.exports = { relatedproducts: RelatedProducts }
 
