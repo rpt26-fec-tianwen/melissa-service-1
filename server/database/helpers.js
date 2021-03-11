@@ -1,4 +1,5 @@
 const db = require('./connection');
+const axios = require('axios');
 
 // Gets data from my database
 async function getRelatedProductIds(id, callback) {
@@ -17,8 +18,18 @@ async function getRelatedProductIds(id, callback) {
 
 let getProductCardData = (productIdsArray) => {
 
+  axios.get('/imposterData', {
+    params: {
+      productIdsArray: productIdsArray
+    },
+    paramsSerializer: params => {
+      return qs.stringify(params)
+    }
+  });
+
 }
 
 
 
 module.exports.getRelatedProductIds = getRelatedProductIds;
+module.exports.getProductCardData = getProductCardData;
