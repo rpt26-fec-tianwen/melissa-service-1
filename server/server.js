@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = 6000;
+const port = 8003;
 
 const path = require('path');
 const fs = require('fs');
@@ -14,11 +14,17 @@ const sampleData = require('../sampleData/sampleData.js');
 
 const axios = require('axios');
 
+app.use(cors());
+
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../public/index.html')));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, '../public/')));
 
 app.get('/', (req, res) => {
-  res.sendStatus('Hello world!');
+  const path = __dirname.split('/');
+  const strippedPath = path.slice(0, path.length - 1).join('/');
+
+  res.sendFile(strippedPath + '/public/');
 });
 
 app.get('/related-products/:id', (req, res) => {
@@ -33,12 +39,12 @@ app.get('/related-products/:id', (req, res) => {
       let product_ids = data[0].related_products;
 
       // Gets the product information from Product Card service needed to display on front end
-      const products = axios.get('http://localhost:6000/related/:ids', { params: { ids: product_ids } })
+      const products = axios.get('http://localhost:8003/related/:ids', { params: { ids: product_ids } })
         .then(response => {
           res.status(200).send(response.data);
         })
         .catch(error => {
-          res.status(500).send('Catch error getting related products: ', error);
+          res.status(500).send(error);
         });
 
     });
@@ -50,7 +56,7 @@ app.get('/related/:ids', (req, res) => {
 
   let products = sampleData.createSampleData();
 
-  let returnData = {};
+  let returnData = [];
 
   for (var i = 0; i < 8; i++) {
     returnData[i] = products[i];

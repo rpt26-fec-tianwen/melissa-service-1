@@ -5,7 +5,7 @@ const axios = require('axios');
 async function getRelatedProductIds(id, callback) {
 
   // Find the record in the database, return the array of related product ids
-  let relatedProductIds = await db.RelatedProducts.find({ '_id': id });
+  let relatedProductIds = await db.relatedproducts.find({ '_id': id });
 
   return relatedProductIds;
 
@@ -16,6 +16,8 @@ async function getRelatedProductIds(id, callback) {
 // Input - array of product ids
 // Output - array of product info (title, price, image) for each product id
 
+
+// I don't know what this is anymore
 let getProductCardData = (productIdsArray) => {
 
   axios.get('/imposterData', {
