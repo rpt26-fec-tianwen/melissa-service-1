@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import RelatedProducts from './components/RelatedProducts.jsx';
+import RelatedProductsContainer from './components/RelatedProductsContainer.jsx';
 
-ReactDOM.render(<RelatedProducts />, document.getElementById('related-products'));
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+
+ReactDOM.render(<RelatedProductsContainer />, document.getElementById('related-products'));
