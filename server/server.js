@@ -20,7 +20,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public/')));
 
+
 app.get('/', (req, res) => {
+  const path = __dirname.split('/');
+  const strippedPath = path.slice(0, path.length - 1).join('/');
+
+  res.sendFile(strippedPath + '/public/');
+});
+
+
+app.get('/:id', (req, res) => {
   const path = __dirname.split('/');
   const strippedPath = path.slice(0, path.length - 1).join('/');
 
@@ -38,8 +47,13 @@ app.get('/related-products/:id', (req, res) => {
 
       let product_ids = data[0].related_products;
 
-      // Gets the product information from Product Card service needed to display on front end
-      const products = axios.get('http://localhost:8003/related/:ids', { params: { ids: product_ids } })
+      // Gets the product information from the Product Card service API
+      async function getProductNamePriceURL() {
+
+        return response = await axios.get('http://localhost:8003/related/:ids', { params: { ids: product_ids } } );
+      }
+
+      getProductNamePriceURL()
         .then(response => {
           res.status(200).send(response.data);
         })
@@ -53,6 +67,10 @@ app.get('/related-products/:id', (req, res) => {
 
 
 app.get('/related/:ids', (req, res) => {
+
+  // console.log('request params are ', req.query);
+  //let ids = req.params.ids;
+  //console.log('the ids requested were: ', ids);
 
   let products = sampleData.createSampleData();
 
@@ -77,16 +95,6 @@ app.get('/seed', (req, res) => {
   });
 
 });
-
-
-// Not sure if I need this anymore.
-// app.get('/createSampleData', (req, res) => {
-
-//   sampleData.createSampleData();
-
-//   res.sendStatus(200);
-// });
-
 
 app.listen(port, () => {
   console.log(`Fjallraven related products service listening at http://localhost:${port}`);

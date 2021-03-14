@@ -11,49 +11,38 @@ class RelatedProductsContainer extends React.Component {
     this.state = {
       relatedproducts: []
     }
-
-
   }
 
-
-
   componentDidMount() {
-
     async function getData() {
+      let productId = location.href.split('//').join('').split('/')[1];
 
-      const response = await axios.get('http://localhost:8003/related-products/55');
-
+      const response = await axios.get(`http://localhost:8003/related-products/${productId}`);
       return response.data;
     }
 
     getData()
       .then((response) => {
-        console.log('in the getData then block ', response);
-
         this.setState({
           relatedproducts: response
         });
-
-        createProductList();
-
       })
       .catch(error => {
         console.log('Catch block in getData promise chain', error);
       });
-
   }
 
   render() {
     return (
       <div>
-        <h3>Related Products</h3>
+        <h3 className="recommended-product--header">RELATED PRODUCTS</h3>
 
-        {this.state.relatedproducts.map( product => <RelatedProduct product={product} />)}
-
+        <div className="related-products-container">
+          {this.state.relatedproducts.map(product => <RelatedProduct key={product.id} product={product} />)}
+        </div>
       </div>
     );
   }
 }
-
 
 export default RelatedProductsContainer;

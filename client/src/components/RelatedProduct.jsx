@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 
 const RelatedProduct = function ({product}) {
 
-  console.log('props in the child component: ', product);
-
-
   return (
-    <div className="related-product-container">
-      <p>{product.title}</p>
-      <p>{product.price}</p>
-      <p><img src={product.url} /></p>
+    <div className="related-product-single">
+      <span className="related-product-img"><img src={product.url} /></span>
+
+      <div className="product-info">
+      <h4 className="related-product-title">{product.title}</h4>
+      <span className="related-product-price">{product.price}</span>
+      </div>
     </div>
   )
 }
