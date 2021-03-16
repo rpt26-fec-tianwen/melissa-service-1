@@ -35,7 +35,13 @@ body {
   line-height: 1.5;
 }
 
-h3.recommended-product--header {
+.related-products-root {
+  position: relative;
+  max-width: 1235px;
+  margin:0 auto;
+}
+
+h3.related-products-header {
   font-family: 'Arctic Fox Headline';
   font-weight: 900;
   font-style: normal;
@@ -46,33 +52,40 @@ h3.recommended-product--header {
 }
 
 .related-products-container {
-  width: 80%,
+  position: relative;
+  margin: 0 auto;
+  background-color: red;
+  width: 100%;
 }
 
 .related-product-single {
-  width:248px;
-  height: 278px;
-  margin:0 auto;
+  height: 340px;
+  margin: 0 0 40px 0;
   padding: 9px 9px 40px;
   float: left;
+  border: 1px solid transparent;
 }
 
 .related-product-single:hover {
   background-color: #f1f1f0;
   border-color: #d5d5d5;
   border: 1px solid transparent;
+  margin: 0 0 40px 0;
+  padding: 9px 9px 40px;
+  border: 1px solid #d5d5d5;
 }
 
 .related-product-img {
   text-align: center;
 }
 
-
 .related-product-img img {
+  width: 240px;
   background-color: #fff;
-  padding:20px;
-  width: 188px;
+  padding: 20px;
+  outline: 1px solid rgba(0,0,0,.1);
 }
+
 .product-info {
 text-align: center;
 }
@@ -86,5 +99,23 @@ text-align: center;
   text-align: center;
   font-size: 16px;
   font-weight: 700;
+}
 
+.slick-arrow {
+  position: absolute;
+  border: none;
+  color: #333;
+  border-radius: 50%;
+  top: 50%;
+  -webkit-transform: translateY(-50%) rotate(180deg);
+  transform: translateY(-50%) rotate(180deg);
+  width: 80px;
+  height: 80px;
+  padding: 40px;
+  background: transparent;
+  z-index: 1;
+}
+
+.slick-arrow.previous {
+  left: -70px;
 }
