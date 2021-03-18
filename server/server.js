@@ -65,7 +65,7 @@ app.get('/related-products/:id', (req, res) => {
 
 });
 
-
+// COMMENT THIS OUT WHEN USED IN CONJUNCTION WITH PRODUCT CARD
 app.get('/related/:ids', (req, res) => {
 
   // console.log('request params are ', req.query);
