@@ -29,6 +29,17 @@ app.get('/', (req, res) => {
 });
 
 
+// Make a request to this route to seed the database
+app.get('/seed', (req, res) => {
+  seedingScript.seedDatabase((err, results) => {
+    if (err) {
+      console.log('Error seeding');
+    }
+    res.status(200).send(results);
+  });
+
+});
+
 app.get('/:id', (req, res) => {
   const path = __dirname.split('/');
   const strippedPath = path.slice(0, path.length - 1).join('/');
@@ -38,7 +49,6 @@ app.get('/:id', (req, res) => {
 
 app.get('/related-products/:id', (req, res) => {
 
-  // Get the request parameters
   let id = req.params.id;
 
   // Gets the related product Ids from my database
@@ -50,7 +60,7 @@ app.get('/related-products/:id', (req, res) => {
       // Gets the product information from the Product Card service API
       async function getProductNamePriceURL() {
 
-        return response = await axios.get('http://localhost:8003/related/:ids', { params: { ids: product_ids } } );
+        return response = await axios.get('http://localhost:8003/related', { params: { ids: product_ids } } );
       }
 
       getProductNamePriceURL()
@@ -66,35 +76,23 @@ app.get('/related-products/:id', (req, res) => {
 });
 
 // COMMENT THIS OUT WHEN USED IN CONJUNCTION WITH PRODUCT CARD
-app.get('/related/:ids', (req, res) => {
+// app.get('/related/:ids', (req, res) => {
 
-  // console.log('request params are ', req.query);
-  //let ids = req.params.ids;
-  //console.log('the ids requested were: ', ids);
+//   // console.log('request params are ', req.query);
+//   //let ids = req.params.ids;
+//   //console.log('the ids requested were: ', ids);
 
-  let products = sampleData.createSampleData();
+//   let products = sampleData.createSampleData();
 
-  let returnData = [];
+//   let returnData = [];
 
-  for (var i = 0; i < 8; i++) {
-    returnData[i] = products[i];
-  }
+//   for (var i = 0; i < 8; i++) {
+//     returnData[i] = products[i];
+//   }
 
-  res.status(200).send(returnData);
+//   res.status(200).send(returnData);
 
-});
-
-
-// Make a request to this route to seed the database
-app.get('/seed', (req, res) => {
-  seedingScript.seedDatabase((err, results) => {
-    if (err) {
-      console.log('Error seeding');
-    }
-    res.status(200).send(results);
-  });
-
-});
+// });
 
 app.listen(port, () => {
   console.log(`Fjallraven related products service listening at http://localhost:${port}`);

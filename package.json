@@ -10,7 +10,7 @@
     "test": "jest --watch",
     "build": "webpack build",
     "react-dev": "webpack serve",
-    "start": "nodemon ./server/server.js localhost:6000"
+    "start": "nodemon ./server/server.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
