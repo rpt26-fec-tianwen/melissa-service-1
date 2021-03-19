@@ -1,5 +1,3 @@
-// From “/products-related/:id”: [{ id: #, title: “”, price: “”, url: “” }...];
-
 const fs = require('fs');
 
 const createSampleData = () => {
