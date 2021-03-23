@@ -5,7 +5,7 @@ const RelatedProduct = function ({product}) {
 
   return (
     <div className="related-product-single">
-      <span className="related-product-img"><img src={product.url} /></span>
+      <span className="related-product-img" crossOrigin='true'><img src={product.url} /></span>
 
       <div className="product-info">
       <h4 className="related-product-title">{product.title}</h4>
