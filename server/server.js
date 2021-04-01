@@ -30,15 +30,17 @@ app.get('/', (req, res) => {
 
 
 // Make a request to this route to seed the database
-// app.get('/seed', (req, res) => {
-//   seedingScript.seedDatabase((err, results) => {
-//     if (err) {
-//       console.log('Error seeding');
-//     }
-//     res.status(200).send(results);
-//   });
+app.get('/seed', (req, res) => {
+  seedingScript.seedDatabase((err, results) => {
+    if (err) {
+      console.log('Error seeding');
+      res.status(500);
+    } else {
+      res.status(200).send(results);
+    }
+  });
 
-// });
+});
 
 app.get('/:id', (req, res) => {
 
@@ -59,14 +61,16 @@ app.get('/related-products/:id', (req, res) => {
       let product_ids = data[0].related_products;
 
       async function getProductNamePriceURL() {
-        return response = await axios.get(`http://localhost:8001/related/${id}`, { params: { ids: product_ids } } );
+        return response = await axios.get(`http://localhost:8001/related/${id}`, { params: { ids: product_ids } });
       }
       getProductNamePriceURL()
         .then(response => {
           res.status(200).send(response.data);
         })
         .catch(error => {
-          res.status(500).send(error);
+          // If product card API unavailable, send default sample data
+          let fallbackData = sampleData.createSampleData();
+          res.status(200).send(fallbackData);
         });
 
     });
