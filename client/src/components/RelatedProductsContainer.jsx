@@ -19,7 +19,7 @@ class RelatedProductsContainer extends React.Component {
 
     //axios.get(`${window.location.protocol + '//' + window.location.host}/related-products/${productId}`)
 
-    axios.get(`http://localhost:8003/related-products/${productId}`)
+    axios.get(`/related-products/${productId}`)
       .then((response) => {
         let displayProducts = response.data.slice(0, 4);
 
