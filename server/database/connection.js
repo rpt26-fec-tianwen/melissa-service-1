@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 //mongodb://mongo:27017/fjallraven
 
 // Local DB Connection
-let connection = mongoose.connect('mongodb://localhost/fjallraven', { useNewUrlParser: true, useUnifiedTopology: true })
+let connection = mongoose.connect('mongodb://mongo:27017/fjallraven', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connection.js - Connected to Fjallraven related products database'))
   .catch(err => console.log(err));
 
