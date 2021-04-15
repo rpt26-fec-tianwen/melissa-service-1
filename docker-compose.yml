@@ -2,6 +2,7 @@ version: "3"
 services:
   web:
     build: "."
+    image: melissaryandigital/melissa-service-1_web
     depends_on:
       - mongo
     ports:
