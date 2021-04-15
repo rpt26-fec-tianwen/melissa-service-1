@@ -8,7 +8,7 @@ services:
     ports:
       - "8003:8003"
     volumes:
-      - melissavolume:/var/lib/docker/volumes
+      - mongo-volume:/var/lib/docker/volumes
     stdin_open: true
     tty: true
   mongo:
@@ -16,4 +16,5 @@ services:
     ports:
       - "27017:27017"
 volumes:
-  melissavolume:
+  mongo-volume:
+    name: melissa-mongo-data
