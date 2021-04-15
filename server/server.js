@@ -53,6 +53,7 @@ app.get('/:id', (req, res) => {
 app.get('/related-products/:id', (req, res) => {
 
   let id = req.params.id;
+  let fallbackData = sampleData.createSampleData();
 
   // Gets the related product Ids from my database
   helpers.getRelatedProductIds(id)
@@ -61,7 +62,7 @@ app.get('/related-products/:id', (req, res) => {
       let product_ids = data[0].related_products;
 
       async function getProductNamePriceURL() {
-        return response = await axios.get(`http://localhost:8001/related/${id}`, { params: { ids: product_ids } });
+        return response = await axios.get(`http://product-card.fjakeraven.com/related/${id}`, { params: { ids: product_ids } });
       }
       getProductNamePriceURL()
         .then(response => {
@@ -69,10 +70,13 @@ app.get('/related-products/:id', (req, res) => {
         })
         .catch(error => {
           // If product card API unavailable, send default sample data
-          let fallbackData = sampleData.createSampleData();
+
           res.status(200).send(fallbackData);
         });
 
+    })
+    .catch(error => {
+      res.status(200).send(fallbackData);
     });
 
 });
