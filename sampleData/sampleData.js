@@ -25,25 +25,25 @@ const createSampleData = () => {
       id: 1,
       title: 'Lorem ipsum dolor ',
       price: '$150',
-      url: 'https://fjallraven.com/globalassets/catalogs/fjallraven/f8/f870/f87024/f235/samlaren_jacket_1c_w_87024-235_a_main_fjr.jpg?width=312&height=312&mode=BoxPad&bgcolor=fff&quality=80'
+      url: 'https://melissa-service-1.s3.us-east-2.amazonaws.com/fjallraven-default-related-1.jpg'
     },
     {
       id: 2,
       title: 'Consectetur adipiscing elit',
       price: '$350',
-      url: 'https://www.fjallraven.com/globalassets/catalogs/fjallraven/f7/f773/f77388/f030-020/7323450451967_fw18_a_byron_hat_fjaellraeven_21.jpg?width=312&height=312&mode=BoxPad&bgcolor=fff&quality=80'
+      url: 'https://melissa-service-1.s3.us-east-2.amazonaws.com/fjallraven-default-related-2.jpg'
     },
     {
       id: 3,
       title: 'Mauris viverra mollis sem',
       price: '$450',
-      url: 'https://www.fjallraven.com/globalassets/catalogs/fjallraven/f8/f893/f89330/f215-018/7323450529086_fw19_c_vidda_pro_ventilated_trs_w_fjaellraeven_21.jpg?width=312&height=312&mode=BoxPad&bgcolor=fff&quality=80'
+      url: 'https://melissa-service-1.s3.us-east-2.amazonaws.com/fjallraven-default-related-3.jpg'
     },
     {
       id: 4,
       title: 'Vestibulum condimentum',
       price: '$550',
-      url: 'https://www.fjallraven.com/globalassets/catalogs/fjallraven/f8/f896/f89655/f625/7323450538934_fw19_a_nuuk_parka_w_fjaellraeven_21.jpg?width=312&height=312&mode=BoxPad&bgcolor=fff&quality=80'
+      url: 'https://melissa-service-1.s3.us-east-2.amazonaws.com/fjallraven-default-related-4.jpg'
     }
     // ,
     // {
